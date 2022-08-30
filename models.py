@@ -13,7 +13,6 @@ tokenlist= []
 
 def abc():
     try:
-
         print(tokenlist)
 
         base_url_2 = 'https://api.icmr.org.in/covid_data/index.php/covid-data'
@@ -23,7 +22,6 @@ def abc():
                 token = i
                 return token
         
-
         headers = {'Authorization': "Bearer {}".format(token_list(tokenlist))}
 
         cursor.execute('select user_id from icmrcoviddetails ORDER BY user_id DESC')
@@ -40,8 +38,6 @@ def abc():
             return data_req
 
         def initial_data_req():
-            print('times')
-            print(headers)
             data_req = requests.post(base_url_2,data= json.dumps({"date_from":"2020-01-01 00:00:00", 
                         "date_to":"2022-08-23 10:00:00"}), headers=headers)
             return data_req
@@ -53,19 +49,15 @@ def abc():
             else:
                     print('valed token none')
                     icmr_data_request = initial_data_req()
-                    
+
         except Exception as e :
             print('initial exception')
             print(e)
 
-
         icmr_response = icmr_data_request.json()
-        print('checkkeys')
-        print(type(icmr_response))
         for a,b in icmr_response.items():
-            print('uuuuuu' ,a)
-            # print('xxxxx' , b)
-
+            print('key: ' ,a)
+            
         try:
             if icmr_response['status'] == 'Wrong number of segments':
                         print('wrong number of segment')
@@ -76,7 +68,6 @@ def abc():
 
                         if str_offset != 'o' :
                                 icmr_data_request = continue_data_req(str_offset)
-
                         else:
                                 icmr_data_request = initial_data_req()
 
@@ -86,10 +77,8 @@ def abc():
                         tokenlist.clear()
                         tokenlist.append(token)
                         headers = {'Authorization': "Bearer {}".format(token_list(tokenlist))}
-
                         if str_offset != 'o' :
                                 icmr_data_request = continue_data_req(str_offset)
-
                         else:
                                 icmr_data_request = initial_data_req()
         
