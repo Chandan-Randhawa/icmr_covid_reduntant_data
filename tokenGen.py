@@ -14,4 +14,4 @@ def xyz():
         icmr_data.raise_for_status()
         print(icmr_response['token'])
         return (icmr_response['token'])
-
+xyz()
